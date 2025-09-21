@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Kolam Design Principles</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #0570c7;
+        --secondary-color: #f0f8ff;
+      }
+      body {
+        font-family: 'Space Grotesk', 'Noto Sans', sans-serif;
+      }
+      .icon-path {
+        fill: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+      <div class="flex h-full grow flex-col">
+        <!-- Header -->
+        <header class="flex items-center justify-between whitespace-nowrap bg-white border-b border-solid border-b-gray-200 px-10 py-4 shadow-sm sticky top-0 z-50">
+          <div class="flex items-center gap-3 text-[var(--primary-color)]">
+            <div class="w-8 h-8">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    class="icon-path"
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <h2 class="text-gray-800 text-2xl font-bold leading-tight tracking-[-0.015em]">KolamGen</h2>
+          </div>
+          <nav class="flex items-center gap-8">
+            <a class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors" href="{{ url_for('home') }}">Home</a>
+            <a class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors" href="{{ url_for('kolam') }}">Designer</a>
+            <a class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors" href="{{ url_for('analysis') }}">Analyze</a>
+            <a class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors" href="{{ url_for('styles') }}">Styles</a>
+          </nav>
+          <a class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300" href="{{ url_for('kolam') }}">
+            <span class="truncate">Get Started</span>
+          </a>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+          <section class="px-10 py-20 bg-[var(--secondary-color)]">
+            <div class="max-w-5xl mx-auto text-center">
+              <h1 class="text-5xl md:text-6xl font-black leading-tight tracking-[-0.033em] mb-4 text-[var(--primary-color)]">Design Principles of Kolam</h1>
+              <p class="text-lg md:text-xl font-normal leading-normal text-gray-700">Unveiling the beauty and logic behind the patterns.</p>
+            </div>
+          </section>
+
+          <section class="px-10 py-20 bg-white">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div class="flex flex-col gap-8">
+                <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 class="text-2xl font-bold text-[var(--primary-color)]">Symmetry</h3>
+                  <p class="mt-2 text-gray-700 text-base">
+                    Kolam designs often exhibit radial or bilateral symmetry. The design is mirrored across one or more axes, creating a balanced and harmonious pattern. This symmetry is a fundamental aspect of Kolam art, reflecting the order and balance found in nature and the cosmos.
+                  </p>
+                </div>
+                <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 class="text-2xl font-bold text-[var(--primary-color)]">Repetition</h3>
+                  <p class="mt-2 text-gray-700 text-base">
+                    Many Kolam designs incorporate repeated motifs or patterns. These repeating elements can be simple geometric shapes or more complex floral or animal forms. The repetition adds rhythm and visual interest to the design, creating a sense of continuity and flow.
+                  </p>
+                </div>
+                <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 class="text-2xl font-bold text-[var(--primary-color)]">Mathematical Logic</h3>
+                  <p class="mt-2 text-gray-700 text-base">
+                    The creation of Kolam designs often involves mathematical principles, such as tessellations, geometric transformations, and modular arithmetic. These principles ensure the precision and regularity of the patterns, resulting in intricate and aesthetically pleasing designs. The underlying mathematical structure contributes to the overall beauty and complexity of the Kolam.
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-8">
+                <div class="w-full aspect-[4/3] rounded-xl bg-cover bg-center bg-no-repeat shadow-lg" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAa3ohecI0qPdCTsO7SdY4-8PbEbGtPGx4uxDClF5makSboi4LqGhky3_R5xqzzf0WQ8MCw22sPxIQ3yoKLbBpJgrQMoKKMsGNJ-2YUN9Ok0-v-VRB-FFdpY7hyqq4oZ1WuTlN-UxH1GO8V4Vz9ekSjZ_DLE5HIgda91zZ_PuoJthdnrj-ZbzTZZX19ZB6GwF5wRavZFSQtejFn6KBymMdOOxF2e-7pETmucARvg-DlOQWSIi-QmUL_1QZNNQT-J1cAQhmXFIb-lkA');"></div>
+                <div class="flex justify-center">
+                  <a class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-transparent text-sm font-bold leading-normal tracking-[0.015em] text-[var(--primary-color)] border-2 border-[var(--primary-color)] transition-colors hover:bg-[var(--primary-color)] hover:text-white" href="#">Back to Design</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white">
+          <div class="max-w-7xl mx-auto px-10 py-12 text-center">
+            <div class="flex flex-wrap items-center justify-center gap-6 mb-6">
+              <a class="text-gray-400 hover:text-white text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+              <a class="text-gray-400 hover:text-white text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+              <a class="text-gray-400 hover:text-white text-base font-normal leading-normal transition-colors" href="#">Contact</a>
+            </div>
+            <p class="text-gray-500 text-base font-normal leading-normal">© 2024 KolamGen. All rights reserved.</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

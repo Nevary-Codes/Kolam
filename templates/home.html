@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <title>KolamGen - Generative Kolam Designs</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #0570c7;
+        --secondary-color: #f0f8ff;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <div
+      class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden"
+      style="font-family: 'Space Grotesk', 'Noto Sans', sans-serif"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header
+          class="flex items-center justify-between whitespace-nowrap bg-white border-b border-solid border-b-gray-200 px-10 py-4 shadow-sm sticky top-0 z-50"
+        >
+          <div class="flex items-center gap-3 text-gray-800">
+            <div class="w-8 h-8 text-[var(--primary-color)]">
+              <svg
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                    fill="currentColor"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <h2
+              class="text-gray-800 text-2xl font-bold leading-tight tracking-[-0.015em]"
+            >
+              KolamGen
+            </h2>
+          </div>
+          <nav class="flex items-center gap-8">
+            <a
+              class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+              href="{{ url_for('kolam') }}"
+              >Designer</a
+            >
+            <a
+              class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+              href="{{ url_for('analysis') }}"
+              >Analyze</a
+            >
+            <a
+              class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+              href="{{ url_for('styles') }}"
+              >Styles</a
+            >
+            <a
+              class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+              href="{{ url_for('principles') }}"
+              >About</a
+            >
+          </nav>
+          <a
+            class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300"
+            href="{{ url_for('kolam') }}"
+          >
+            <span class="truncate">Get Started</span>
+          </a>
+        </header>
+        <main class="flex-1">
+          <section class="relative">
+            <div
+              class="absolute inset-0 bg-cover bg-center"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDC5RZrfjYrlxvzNWSaz0ZeHvMaAIb8D2ZiwLWapAO8jN7xWHk6z7BqERHpRarMtHh38V-SOGcE8sRtqAfJgKeUtSw5RJSGUG0E6NJwNVZIpWJ6QnlwzSi-6dHszfRCxtRAG0Rdro-C4GXBgDLvX89u4f11h8BjHmH4GxggBGFgCodhGnfBBPjTqgGYri3mrR9Fs4HPUAXVtdTQH-41wrh1XhQwkC3fkKyAb-AyXBLeJovwjg7818f10CiUKpIRVs-AmDnEOzf5JOg');
+              "
+            ></div>
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div
+              class="relative px-10 py-32 flex flex-col items-center justify-center text-center text-white"
+            >
+              <h1
+                class="text-5xl md:text-6xl font-black leading-tight tracking-[-0.033em] mb-4 max-w-4xl"
+              >
+                Create Stunning Kolam Designs with Ease
+              </h1>
+              <p
+                class="text-lg md:text-xl font-normal leading-normal max-w-3xl mb-8"
+              >
+                KolamGen is your go-to platform for generating beautiful and
+                intricate Kolam designs. Explore the art of Kolam, learn about
+                its design principles, and create your own unique patterns.
+              </p>
+              <a
+                class="flex min-w-[150px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-12 px-8 bg-[var(--primary-color)] text-white text-lg font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+                href="{{ url_for('kolam') }}"
+              >
+                <span class="truncate">Start Designing</span>
+              </a>
+            </div>
+          </section>
+          <section class="px-10 py-20 bg-[var(--secondary-color)]">
+            <div class="max-w-5xl mx-auto text-center">
+              <h2
+                class="text-gray-800 text-4xl font-bold leading-tight tracking-[-0.015em] mb-4"
+              >
+                What is Kolam?
+              </h2>
+              <p class="text-gray-600 text-lg font-normal leading-relaxed">
+                Kolam is a traditional South Indian art form where intricate
+                patterns are drawn using rice flour. These designs, often
+                created by women, adorn the entrances of homes and temples,
+                symbolizing auspiciousness and welcoming deities. Kolam patterns
+                are based on mathematical principles, combining symmetry,
+                geometry, and creativity.
+              </p>
+            </div>
+          </section>
+          <section class="px-10 py-20 bg-white">
+            <div class="max-w-7xl mx-auto">
+              <h2
+                class="text-gray-800 text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-12"
+              >
+                Explore the Possibilities
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="flex flex-col gap-4 text-center items-center">
+                  <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg shadow-lg"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARolL5jWPK00zsu91h8_y1ZwNBT4JJCGVNVPpVx6vzngYZiuTHZjKhzTcigZ3VKfwZf2F_EnGPB1m0SjQhoS8Gf4F1j9aIRW2ecYH--Dn7H1NlnRYkVoqlkgfVtkMWNhVW4cAxR6oAQ34B5uWCd4qhBMThNIUgCVN89aj-pLrAhGG8iHl9VuFutEgmF4v8dgQ4cQ15-R79voeiTSn4dwhCn2gywF1HaZ4QNG6jZFPB9er5lX7DtDA3mO1lIQOCDrkWofib__qXkkY');
+                    "
+                  ></div>
+                  <div>
+                    <h3
+                      class="text-gray-800 text-xl font-semibold leading-normal mb-2"
+                    >
+                      Designer Workspace
+                    </h3>
+                    <p
+                      class="text-gray-500 text-base font-normal leading-normal"
+                    >
+                      Dive into our intuitive design workspace and start
+                      creating your own Kolam patterns. Customize every aspect
+                      of your design.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-4 text-center items-center">
+                  <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg shadow-lg"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAltCK5Ok46Y9wZrF7o2NTaZtyr4lTWpZpu_3IrZ9OEzfFqHVGfnY855iPHtZWJ5XDo7QC9fNWHut4ftJIUZcFSbiqK6WvIFdQJiMqaZIYUfQFwAop7Ez2GaEC9yXLhw4o0s-XZV1GhjuA0PkShI7iCFLGFlZViF8xy-7QkJcEO2LL9Ww40oFsklUkrL7jlmu6YSydlcPeh8e0K16Pah8J3kyJ6g_loFsoLjymJrFSnO8wkvMfoe0vATk-yMCWrmykylfzbGcTPsp0');
+                    "
+                  ></div>
+                  <div>
+                    <h3
+                      class="text-gray-800 text-xl font-semibold leading-normal mb-2"
+                    >
+                      Gallery
+                    </h3>
+                    <p
+                      class="text-gray-500 text-base font-normal leading-normal"
+                    >
+                      Browse a curated gallery of Kolam designs. Get inspired by
+                      the creativity of our community and discover new patterns.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-4 text-center items-center">
+                  <div
+                    class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg shadow-lg"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVS4ibJqWUwZ_0Z-VcK3WMlzGN5-vsmv0qDpqbQFXLSmqPupSMWnwljH9lpc353v6oM1ZUeq009XwQKd_2YYFQl3F-L_vRXev9vhQTZgz7L0dr6aERy_F9lULOhwai7rMz7ECIMAZRyRCaUgn6L5fFLe8GIcxtb9B9rNqdJ1K9l0YLM227aT7jH1dkDLQdSTrM12HY8VpvApDtvTrvvxWpuCO6EM5XVE8YB4o0wcAlj4PdCtT3JoDYC0_pdBZ0c6hmULMDI3yOUk8');
+                    "
+                  ></div>
+                  <div>
+                    <h3
+                      class="text-gray-800 text-xl font-semibold leading-normal mb-2"
+                    >
+                      Design Principles
+                    </h3>
+                    <p
+                      class="text-gray-500 text-base font-normal leading-normal"
+                    >
+                      Learn about the mathematical and geometric principles that
+                      govern Kolam design and make this art form so unique.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <footer class="bg-gray-800 text-white">
+          <div class="max-w-7xl mx-auto px-10 py-12 text-center">
+            <div class="flex flex-wrap items-center justify-center gap-6 mb-6">
+              <a
+                class="text-gray-400 hover:text-white text-base font-normal leading-normal transition-colors"
+                href="#"
+                >Privacy Policy</a
+              >
+              <a
+                class="text-gray-400 hover:text-white text-base font-normal leading-normal transition-colors"
+                href="#"
+                >Terms of Service</a
+              >
+              <a
+                class="text-gray-400 hover:text-white text-base font-normal leading-normal transition-colors"
+                href="#"
+                >Contact</a
+              >
+            </div>
+            <p class="text-gray-500 text-base font-normal leading-normal">
+              © 2024 KolamGen. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

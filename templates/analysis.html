@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Kolam Analysis and Generation</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0570c7",
+              "background-light": "#f5f7f8",
+              "background-dark": "#0f1a23",
+            },
+            fontFamily: {
+              display: ["Space Grotesk"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header
+        class="bg-background-light dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800"
+      >
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-4">
+              <svg
+                class="h-8 w-8 text-primary"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                    fill="currentColor"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+              <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+                KolamGen
+              </h1>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="{{ url_for('home') }}"
+                >Home</a
+              >
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="{{ url_for('kolam') }}"
+                >Design</a
+              >
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="{{ url_for('styles') }}"
+                >Styles</a
+              >
+              <a
+                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+                href="{{ url_for('principles')}}"
+                >About</a
+              >
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-12 text-center">
+            <h2
+              class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
+            >
+              Kolam Analysis &amp; Generation
+            </h2>
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
+              Upload your Kolam design to see its analysis and generate new
+              variations.
+            </p>
+          </div>
+
+          <!-- Upload -->
+          <div class="mb-12">
+            <label
+              class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-xl cursor-pointer bg-gray-50 dark:bg-gray-800/50 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              for="kolam-upload"
+            >
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <span
+                  class="material-symbols-outlined text-5xl text-gray-400 dark:text-gray-500"
+                >
+                  upload_file
+                </span>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span class="font-semibold">Click to upload</span> or drag and
+                  drop
+                </p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                </p>
+              </div>
+              <input class="hidden" id="kolam-upload" type="file" />
+            </label>
+          </div>
+
+          <!-- Main grid -->
+          <div class="grid md:grid-cols-2 gap-12 items-start">
+            <!-- Left Column -->
+            <div class="space-y-8">
+              <div>
+                <h3
+                  class="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+                >
+                  Generated Kolam
+                </h3>
+                <div
+                  class="aspect-[4/3] rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center relative"
+                >
+                  <div
+                    id="analyzed-placeholder"
+                    class="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500 text-lg"
+                  >
+                    ✨ Upload a Kolam to see analysis ✨
+                  </div>
+                  <img
+                    id="analyzed-kolam"
+                    src=""
+                    alt="Analyzed Kolam"
+                    class="object-contain w-full h-full hidden"
+                  />
+                </div>
+              </div>
+
+              <!-- Buttons below the analyzed image -->
+              <!-- Buttons below the analyzed image -->
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <button
+                    id="download-btn"
+                    class="flex-1 inline-flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold hover:opacity-90 transition-opacity"
+                  >
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Generated Variations -->
+            <div class="space-y-8">
+              <div>
+                <h3
+                  class="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+                >
+                  Kolam Analysis
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                  <div
+                    id="gen1"
+                    class="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                  >
+                    <div
+                      class="placeholder absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500 text-xs"
+                    >
+                      Skeleton Placeholder
+                    </div>
+                  </div>
+                  <div
+                    id="gen2"
+                    class="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                  >
+                    <div
+                      class="placeholder absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500 text-xs"
+                    >
+                      Dots Placeholder
+                    </div>
+                  </div>
+                  <div
+                    id="gen3"
+                    class="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                  >
+                    <div
+                      class="placeholder absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500 text-xs"
+                    >
+                      Contours Placeholder
+                    </div>
+                  </div>
+                  <div
+                    id="gen4"
+                    class="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                  >
+                    <div
+                      class="placeholder absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500 text-xs"
+                    >
+                      Canny Edges Placeholder
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div>
+                <h3
+                  class="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+                >
+                  Analysis Steps
+                </h3>
+                <div
+                  class="divide-y divide-gray-200 dark:divide-gray-800 border-t border-gray-200 dark:border-gray-800"
+                >
+                  <div class="py-4 grid grid-cols-3 gap-4">
+                    <p
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                    >
+                      Symmetry
+                    </p>
+                    <p
+                      class="text-sm text-gray-900 dark:text-gray-100 col-span-2"
+                    >
+                      Radial symmetry detected
+                    </p>
+                  </div>
+                  <div class="py-4 grid grid-cols-3 gap-4">
+                    <p
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                    >
+                      Grid Points
+                    </p>
+                    <p
+                      class="text-sm text-gray-900 dark:text-gray-100 col-span-2"
+                    >
+                      16
+                    </p>
+                  </div>
+                  <div class="py-4 grid grid-cols-3 gap-4">
+                    <p
+                      class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                    >
+                      Line Patterns
+                    </p>
+                    <p
+                      class="text-sm text-gray-900 dark:text-gray-100 col-span-2"
+                    >
+                      Complex interwoven lines
+                    </p>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <!-- end grid -->
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const fileInput = document.getElementById("kolam-upload");
+      fileInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+          const res = await fetch("/analyse", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+
+          // Show analyzed image
+          const analyzedImg = document.getElementById("analyzed-kolam");
+          const analyzedPlaceholder = document.getElementById(
+            "analyzed-placeholder"
+          );
+          analyzedImg.src = `data:image/png;base64,${data.analyzed_kolam}`;
+          analyzedImg.classList.remove("hidden");
+          analyzedPlaceholder.style.display = "none";
+
+          // Show generated variations
+          ["gen1", "gen2", "gen3", "gen4"].forEach((id, index) => {
+            const el = document.getElementById(id);
+            const placeholders = el.querySelectorAll(".placeholder");
+            placeholders.forEach((p) => (p.style.display = "none"));
+
+            const key = ["skeleton", "dots", "contours", "edges"][index];
+            el.style.backgroundImage = `url(data:image/png;base64,${data[key]})`;
+            el.style.backgroundSize = "contain";
+            el.style.backgroundPosition = "center";
+            el.style.backgroundRepeat = "no-repeat";
+          });
+        } catch (err) {
+          console.error("Error uploading image:", err);
+        }
+      });
+
+      const downloadBtn = document.getElementById("download-btn");
+      downloadBtn.addEventListener("click", () => {
+        const analyzedImg = document.getElementById("analyzed-kolam");
+        if (!analyzedImg.src) {
+          alert("No analyzed image to download!");
+          return;
+        }
+
+        const link = document.createElement("a");
+        link.href = analyzedImg.src;
+        link.download = "analyzed_kolam.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    </script>
+  </body>
+</html>

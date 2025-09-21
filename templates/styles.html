@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Kolam Style Transfer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0570c7",
+              "background-light": "#f5f7f8",
+              "background-dark": "#0f1a23",
+              "foreground-light": "#0f1a23",
+              "foreground-dark": "#f5f7f8",
+              "card-light": "#ffffff",
+              "card-dark": "#1a2732",
+              "border-light": "#e5e7eb",
+              "border-dark": "#374151",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header
+        class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark"
+      >
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-4">
+              <svg
+                class="h-8 w-8 text-primary"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                    fill="currentColor"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+              <h1
+                class="text-2xl font-bold text-foreground-light dark:text-foreground-dark"
+              >
+                KolamGen
+              </h1>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+              <a
+                class="text-sm font-medium hover:text-primary transition-colors"
+                href="{{ url_for('home') }}"
+                >Home</a
+              >
+              <a
+                class="text-sm font-medium hover:text-primary transition-colors"
+                href="{{ url_for('kolam') }}"
+                >Generate</a
+              >
+              <a
+                class="text-sm font-medium hover:text-primary transition-colors"
+                href="{{ url_for('analysis') }}"
+                >Analyze</a
+              >
+              <a
+                class="text-sm font-medium hover:text-primary transition-colors"
+                href="{{ url_for('principles') }}"
+                >About</a
+              >
+            </nav>
+          </div>
+        </div>
+      </header>
+      <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-12">
+            <h2
+              class="text-4xl font-bold tracking-tight text-foreground-light dark:text-foreground-dark sm:text-5xl"
+            >
+              Kolam Style Transfer
+            </h2>
+            <p
+              class="mt-4 text-lg text-foreground-light/70 dark:text-foreground-dark/70"
+            >
+              Transform your Kolam designs with beautiful artistic styles.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            <div class="space-y-8">
+              <div
+                class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark"
+              >
+                <h3 class="text-xl font-bold mb-4">1. Upload Your Kolam</h3>
+                <div
+                  class="relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-border-light dark:border-border-dark rounded-lg cursor-pointer hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+                >
+                  <div class="text-center">
+                    <span
+                      class="material-symbols-outlined text-5xl text-primary"
+                      >upload_file</span
+                    >
+                    <p
+                      class="mt-2 text-sm text-foreground-light/80 dark:text-foreground-dark/80"
+                    >
+                      <span class="font-semibold">Click to upload</span> or drag
+                      and drop
+                    </p>
+                    <p
+                      class="text-xs text-foreground-light/60 dark:text-foreground-dark/60"
+                    >
+                      PNG, JPG, or SVG
+                    </p>
+                  </div>
+                  <input
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    type="file"
+                  />
+                </div>
+              </div>
+              <div
+                class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark"
+              >
+                <h3 class="text-xl font-bold mb-4">2. Select a Style</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <div
+                    class="group cursor-pointer"
+                    data-path="static/styles/Large Artwork by Gretchen Andrew.jpg"
+                  >
+                    <div
+                      class="aspect-square bg-cover bg-center rounded-lg border-2 border-transparent group-hover:border-primary transition-all style-image"
+                      style="
+                        background-image: url('static/styles/Large Artwork by Gretchen Andrew.jpg');
+                      "
+                    ></div>
+                    <p class="text-center mt-2 text-sm font-medium">Modern</p>
+                  </div>
+
+                  <div
+                    class="group cursor-pointer"
+                    data-path="static/styles/The Rainbow Hormandie 1902.jpg"
+                  >
+                    <div
+                      class="aspect-square bg-cover bg-center rounded-lg border-2 border-transparent group-hover:border-primary transition-all style-image"
+                      style="
+                        background-image: url('static/styles/The Rainbow Hormandie 1902.jpg');
+                      "
+                    ></div>
+                    <p
+                      class="text-center mt-2 text-sm font-medium text-primary"
+                    >
+                      Earthy
+                    </p>
+                  </div>
+
+                  <div
+                    class="group cursor-pointer"
+                    data-path="static/styles/Preview 1904.jpg"
+                  >
+                    <div
+                      class="aspect-square bg-cover bg-center rounded-lg border-2 border-transparent group-hover:border-primary transition-all style-image"
+                      style="
+                        background-image: url('static/styles/Preview 1904.jpg');
+                      "
+                    ></div>
+                    <p class="text-center mt-2 text-sm font-medium">Vintage</p>
+                  </div>
+
+                  <div
+                    class="group cursor-pointer"
+                    data-path="static/styles/The White Glove 1925 by Joan Miro.jpg"
+                  >
+                    <div
+                      class="aspect-square bg-cover bg-center rounded-lg border-2 border-transparent group-hover:border-primary transition-all style-image"
+                      style="
+                        background-image: url('static/styles/The White Glove 1925 by Joan Miro.jpg');
+                      "
+                    ></div>
+                    <p class="text-center mt-2 text-sm font-medium">
+                      Watercolour
+                    </p>
+                  </div>
+
+                  <div
+                    class="group cursor-pointer"
+                    data-path="static/styles/geometry 3.jpg"
+                  >
+                    <div
+                      class="aspect-square bg-cover bg-center rounded-lg border-2 border-transparent group-hover:border-primary transition-all style-image"
+                      style="
+                        background-image: url('static/styles/geometry 3.jpg');
+                      "
+                    ></div>
+                    <p class="text-center mt-2 text-sm font-medium">Geometry</p>
+                  </div>
+                                    <div
+                    class="group cursor-pointer"
+                    data-path="static/styles/watercolour.jpg"
+                  >
+                    <div
+                      class="aspect-square bg-cover bg-center rounded-lg border-2 border-transparent group-hover:border-primary transition-all style-image"
+                      style="
+                        background-image: url('static/styles/watercolour.jpg');
+                      "
+                    ></div>
+                    <p class="text-center mt-2 text-sm font-medium">Cosmic</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <button
+                  class="flex-1 bg-primary text-white font-bold py-3 px-6 rounded-lg text-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
+                  onclick="applyStyleTransfer()"
+                >
+                  <span class="material-symbols-outlined">auto_fix_high</span>
+                  Apply Style Transfer
+                </button>
+                <button
+                  id="download-btn"
+                  class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg flex items-center justify-center gap-2 hover:bg-green-700 transition-colors disabled:opacity-50"
+                >
+                  <span class="material-symbols-outlined">download</span>
+                  Download
+                </button>
+              </div>
+            </div>
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark"
+            >
+              <h3 class="text-xl font-bold mb-4">3. Result</h3>
+              <div class="space-y-6">
+                <div>
+                  <h4
+                    class="text-sm font-bold uppercase tracking-wider text-foreground-light/60 dark:text-foreground-dark/60 mb-2"
+                  >
+                    Original
+                  </h4>
+                  <div
+                    id="original-image"
+                    class="aspect-square w-full rounded-lg bg-cover bg-center border border-border-light dark:border-border-dark"
+                    style="background-image: url('')"
+                  ></div>
+                </div>
+                <div>
+                  <h4
+                    class="text-sm font-bold uppercase tracking-wider text-foreground-light/60 dark:text-foreground-dark/60 mb-2"
+                  >
+                    Transferred Style
+                  </h4>
+                  <div
+                    id="result-image"
+                    class="aspect-square w-full rounded-lg bg-cover bg-center border border-primary ring-2 ring-primary"
+                    style="background-image: url('')"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div
+      id="processing-overlay"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 p-6 rounded-lg flex items-center gap-4"
+      >
+        <span class="material-symbols-outlined animate-spin text-3xl"
+          >autorenew</span
+        >
+        <p class="text-lg font-medium text-gray-900 dark:text-gray-100">
+          Processing style transfer...
+        </p>
+      </div>
+    </div>
+    <script>
+      let selectedStylePath = null;
+
+      // Select style
+      document.querySelectorAll(".group.cursor-pointer").forEach((el) => {
+        el.addEventListener("click", () => {
+          selectedStylePath = el.dataset.path;
+          // Remove ring from all style images
+          document.querySelectorAll(".style-image").forEach((img) => {
+            img.classList.remove("ring-2", "ring-primary");
+          });
+          // Add ring only to clicked image
+          el.querySelector(".style-image").classList.add(
+            "ring-2",
+            "ring-primary"
+          );
+        });
+      });
+
+      async function applyStyleTransfer() {
+        const contentFile =
+          document.querySelector('input[type="file"]').files[0];
+
+        if (!contentFile) {
+          alert("Please upload a Kolam!");
+          return;
+        }
+        if (!selectedStylePath) {
+          alert("Please select a style!");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("content", contentFile);
+        formData.append("style", selectedStylePath);
+
+        const overlay = document.getElementById("processing-overlay");
+        overlay.classList.remove("hidden");
+
+        try {
+          const response = await fetch("/stylize", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            alert("Error processing image.");
+            return;
+          }
+
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+
+          // Show original
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            document.querySelector(
+              "#original-image"
+            ).style.backgroundImage = `url(${e.target.result})`;
+          };
+          reader.readAsDataURL(contentFile);
+
+          // Show stylized
+          document.querySelector(
+            "#result-image"
+          ).style.backgroundImage = `url(${url})`;
+
+          // Enable download
+          enableDownload(url);
+        } catch (err) {
+          console.error(err);
+          alert("An error occurred during style transfer.");
+        } finally {
+          overlay.classList.add("hidden");
+        }
+      }
+
+      function enableDownload(url) {
+        const downloadBtn = document.getElementById("download-btn");
+        downloadBtn.disabled = false;
+        downloadBtn.onclick = () => {
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "kolam_stylized.png"; // filename
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+      }
+    </script>
+  </body>
+</html>

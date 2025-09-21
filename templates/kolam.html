@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kolam Generator</title>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #0570c7;
+        --secondary-color: #f0f8ff;
+      }
+      body {
+        font-family: "Space Grotesk", "Noto Sans", sans-serif;
+      }
+      img#kolam-output {
+        border-radius: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <div class="flex min-h-screen flex-col">
+      <!-- HEADER -->
+      <header
+        class="flex items-center justify-between whitespace-nowrap bg-white border-b border-gray-200 px-10 py-4 shadow-sm sticky top-0 z-50"
+      >
+        <div class="flex items-center gap-3 text-[var(--primary-color)]">
+          <div class="w-8 h-8">
+            <svg
+              fill="none"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_6_319)">
+                <path
+                  d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  fill="currentColor"
+                ></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_319">
+                  <rect fill="white" height="48" width="48"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <h2
+            class="text-gray-800 text-2xl font-bold leading-tight tracking-[-0.015em]"
+          >
+            KolamGen
+          </h2>
+        </div>
+
+        <nav class="flex items-center gap-8">
+          <a
+            class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+            href="{{ url_for('home') }}"
+            >Home</a
+          >
+          <a
+            class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+            href="{{ url_for('analysis') }}"
+            >Analyze</a
+          >
+          <a
+            class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+            href="{{ url_for('styles') }}"
+            >Styles</a
+          >
+          <a
+            class="text-gray-600 hover:text-[var(--primary-color)] text-base font-medium leading-normal transition-colors"
+            href="{{ url_for('principles') }}"
+            >About</a
+          >
+        </nav>
+
+        <a
+          id="download-btn"
+          class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300"
+          href="#"
+        >
+          <span class="truncate">Save</span>
+        </a>
+      </header>
+
+      <!-- MAIN -->
+      <main class="flex flex-1 flex-col md:flex-row">
+        <!-- Canvas Section -->
+        <div
+          class="flex flex-1 flex-col items-center justify-center p-6 bg-[var(--secondary-color)]"
+        >
+          <div class="w-full max-w-4xl">
+            <h2 class="pb-6 pt-5 text-center text-3xl font-bold text-gray-900">
+              Generated Kolam
+            </h2>
+            <div
+              class="relative aspect-square w-full flex items-center justify-center bg-white rounded-2xl shadow-lg"
+            >
+              <!-- Placeholder -->
+              <div
+                id="kolam-placeholder"
+                class="absolute inset-0 flex items-center justify-center text-gray-400 text-lg"
+              >
+                ✨ Generate a Kolam to see it here ✨
+              </div>
+
+              <!-- Kolam Image (hidden until generated) -->
+              <img
+                id="kolam-output"
+                src=""
+                class="w-full h-full object-contain hidden"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Parameters Sidebar -->
+        <aside
+          class="w-full md:w-96 border-t md:border-t-0 md:border-l border-gray-200 bg-white p-6 overflow-y-auto"
+        >
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Parameters</h3>
+          <div class="space-y-4 text-sm">
+            <form
+              id="kolam-form"
+              method="POST"
+              action="/generate_kolam"
+              enctype="multipart/form-data"
+            >
+              <!-- Pattern -->
+              <label class="block">
+                Pattern:
+                <select
+                  id="pattern"
+                  name="pattern"
+                  class="mt-1 w-full rounded-lg border-gray-300"
+                >
+                  <option value="weave">Weave</option>
+                  <option value="radial">Radial</option>
+                  <option value="fractal">Fractal</option>
+                  <option value="spiral">Spiral</option>
+                  <option value="mandala">Mandala</option>
+                  <option value="lattice">Lattice</option>
+                  <option value="flower">Flower</option>
+                </select>
+              </label>
+
+              <!-- Common Inputs -->
+              <label class="block">
+                Line Color:
+                <input
+                  type="color"
+                  id="line_color"
+                  name="line_color"
+                  value="#000000"
+                  class="mt-1 w-full"
+                />
+              </label>
+
+              <label class="block">
+                Background Color:
+                <input
+                  type="color"
+                  id="bg_color"
+                  name="bg_color"
+                  value="#FFFFFF"
+                  class="mt-1 w-full"
+                />
+              </label>
+
+              <label class="block">
+                Line Width:
+                <input
+                  type="number"
+                  id="line_width"
+                  name="line_width"
+                  value="2"
+                  min="1"
+                  max="10"
+                  class="mt-1 w-full rounded-lg border-gray-300"
+                />
+              </label>
+
+              <!-- Dynamic Pattern-Specific Inputs -->
+              <div id="pattern-inputs" class="space-y-4"></div>
+
+              <!-- Buttons -->
+              <div class="flex flex-wrap justify-center gap-3 pt-4">
+                <button
+                  type="submit"
+                  class="h-12 grow basis-40 rounded-full bg-[var(--primary-color)] text-white text-base font-bold hover:bg-blue-700 transition-all duration-300"
+                >
+                  Generate
+                </button>
+                <button
+                  type="button"
+                  onclick="clearKolam()"
+                  class="h-12 grow basis-40 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-all duration-300"
+                >
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script>
+      // Pattern-specific inputs
+      const patternInputs = {
+        weave: `
+    <label>Rows: <input type="number" id="rows" value="6" min="2" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Cols: <input type="number" id="cols" value="6" min="2" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Spacing: <input type="number" id="spacing" value="1" step="0.1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+        radial: `
+    <label>Petals: <input type="number" id="n_petals" value="12" min="3" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Rings: <input type="number" id="rings" value="3" min="1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Radius: <input type="number" id="radius" value="1" step="0.1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+        fractal: `
+    <label>Depth: <input type="number" id="fractal_depth" value="4" min="1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Radius: <input type="number" id="radius" value="1" step="0.1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+        spiral: `
+    <label>Turns: <input type="number" id="turns" value="20" min="1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Spacing: <input type="number" id="spacing" value="0.2" step="0.05" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+        mandala: `
+    <label>Layers: <input type="number" id="layers" value="5" min="1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Petals: <input type="number" id="n_petals" value="10" min="3" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Radius: <input type="number" id="radius" value="1" step="0.1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+        lattice: `
+    <label>Rows: <input type="number" id="rows" value="6" min="2" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Cols: <input type="number" id="cols" value="6" min="2" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Spacing: <input type="number" id="spacing" value="1" step="0.1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+        flower: `
+    <label>Petals: <input type="number" id="n_petals" value="8" min="3" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+    <label>Radius: <input type="number" id="radius" value="1" step="0.1" class="mt-1 w-full rounded-lg border-gray-300"/></label>
+  `,
+      };
+
+      const patternSelect = document.getElementById("pattern");
+      const patternInputsDiv = document.getElementById("pattern-inputs");
+      patternSelect.addEventListener("change", () => {
+        patternInputsDiv.innerHTML = patternInputs[patternSelect.value] || "";
+      });
+      patternInputsDiv.innerHTML = patternInputs[patternSelect.value];
+
+      document
+        .getElementById("kolam-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const formData = new FormData(form);
+          form
+            .querySelectorAll("#pattern-inputs input, #pattern-inputs select")
+            .forEach((el) => {
+              if (el.id)
+                formData.append(
+                  el.id,
+                  el.type === "number" ? parseFloat(el.value) : el.value
+                );
+            });
+          try {
+            const response = await fetch("/generate_kolam", {
+              method: "POST",
+              body: formData,
+            });
+            if (!response.ok) throw new Error("Failed to generate Kolam");
+            const blob = await response.blob();
+            const imgUrl = URL.createObjectURL(blob);
+            const img = document.getElementById("kolam-output");
+            const placeholder = document.getElementById("kolam-placeholder");
+            img.src = imgUrl;
+            img.classList.remove("hidden");
+            placeholder.style.display = "none";
+          } catch (err) {
+            console.error(err);
+            alert("Error generating Kolam!");
+          }
+        });
+
+      function clearKolam() {
+        const img = document.getElementById("kolam-output");
+        const placeholder = document.getElementById("kolam-placeholder");
+        img.src = "";
+        img.classList.add("hidden");
+        placeholder.style.display = "flex";
+      }
+      // Download Kolam Image
+      document.getElementById("download-btn").addEventListener("click", () => {
+        const img = document.getElementById("kolam-output");
+        if (img.src && !img.classList.contains("hidden")) {
+          const link = document.createElement("a");
+          link.href = img.src;
+          link.download = "kolam.png";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("No Kolam generated to save!");
+        }
+      });
+    </script>
+  </body>
+</html>
