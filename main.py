@@ -173,3 +173,4 @@ def generate_kolam_image(pattern="weave",
     plt.close(fig)
     buf.seek(0)
     return buf
+

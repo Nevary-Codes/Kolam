@@ -17,6 +17,9 @@
         --primary-color: #0570c7;
         --secondary-color: #f0f8ff;
       }
+      html {
+        scroll-behavior: smooth;
+      }
     </style>
   </head>
   <body class="bg-gray-50">
@@ -78,7 +81,7 @@
           </nav>
           <a
             class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300"
-            href="{{ url_for('kolam') }}"
+            href="#features"
           >
             <span class="truncate">Get Started</span>
           </a>
@@ -113,6 +116,137 @@
               >
                 <span class="truncate">Start Designing</span>
               </a>
+            </div>
+          </section>
+          <section class="px-10 py-20 bg-white" id="features">
+            <div class="max-w-7xl mx-auto">
+              <h2
+                class="text-gray-800 text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-4"
+              >
+                Discover Our New Features
+              </h2>
+              <p
+                class="text-gray-600 text-lg font-normal leading-relaxed text-center mb-12 max-w-3xl mx-auto"
+              >
+                We've added powerful new tools to enhance your Kolam creation
+                experience. Explore the next generation of design possibilities.
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                  class="bg-[var(--secondary-color)] rounded-lg p-8 flex flex-col items-start text-left shadow-md hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div class="w-12 h-12 mb-4 text-[var(--primary-color)]">
+                    <svg
+                      class="w-full h-full"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                  </div>
+                  <h3
+                    class="text-gray-800 text-2xl font-bold leading-tight tracking-[-0.015em] mb-3"
+                  >
+                    Kolam Analysis
+                  </h3>
+                  <p
+                    class="text-gray-600 text-base font-normal leading-normal mb-6 flex-grow"
+                  >
+                    Get detailed insights into your designs. Our analysis tool
+                    evaluates symmetry, complexity, and adherence to traditional
+                    Kolam principles.
+                  </p>
+                  <a
+                    class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300"
+                    href="{{ url_for('analysis') }}"
+                  >
+                    <span class="truncate">Try It Out</span>
+                  </a>
+                </div>
+                <div
+                  class="bg-[var(--secondary-color)] rounded-lg p-8 flex flex-col items-start text-left shadow-md hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div class="w-12 h-12 mb-4 text-[var(--primary-color)]">
+                    <svg
+                      class="w-full h-full"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 0 1 3-3h.008c1.657 0 3 1.343 3 3v8.25a3 3 0 0 1-3 3h-.008Z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                  </div>
+                  <h3
+                    class="text-gray-800 text-2xl font-bold leading-tight tracking-[-0.015em] mb-3"
+                  >
+                    Kolam Style Transfer
+                  </h3>
+                  <p
+                    class="text-gray-600 text-base font-normal leading-normal mb-6 flex-grow"
+                  >
+                    Apply the artistic style of one Kolam to another. Experiment
+                    with different aesthetics and create unique hybrid designs
+                    effortlessly.
+                  </p>
+                  <a
+                    class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300"
+                    href="{{ url_for('styles') }}"
+                  >
+                    <span class="truncate">Try It Now</span>
+                  </a>
+                </div>
+                <div
+                  class="bg-[var(--secondary-color)] rounded-lg p-8 flex flex-col items-start text-left shadow-md hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div class="w-12 h-12 mb-4 text-[var(--primary-color)]">
+                    <svg
+                      class="w-full h-full"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                  </div>
+                  <h3
+                    class="text-gray-800 text-2xl font-bold leading-tight tracking-[-0.015em] mb-3"
+                  >
+                    Designer Workspace
+                  </h3>
+                  <p
+                    class="text-gray-600 text-base font-normal leading-normal mb-6 flex-grow"
+                  >
+                    Our enhanced workspace offers more tools, grids, and guides
+                    to help you craft intricate and precise Kolam designs with
+                    greater ease.
+                  </p>
+                  <a
+                    class="flex min-w-[120px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-all duration-300"
+                    href="{{ url_for('kolam') }}"
+                  >
+                    <span class="truncate">Start Creating</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </section>
           <section class="px-10 py-20 bg-[var(--secondary-color)]">
