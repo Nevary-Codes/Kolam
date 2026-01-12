@@ -160,6 +160,14 @@
                     alt="Analyzed Kolam"
                     class="object-contain w-full h-full hidden"
                   />
+
+                  <!-- Classification overlay -->
+                  <div
+                    id="classification-overlay"
+                    class="absolute bottom-2 left-2 px-3 py-1 rounded-md bg-black/40 text-white text-sm font-semibold"
+                  >
+                    Classification: Unknown
+                  </div>
                 </div>
               </div>
 
@@ -320,6 +328,10 @@
             el.style.backgroundPosition = "center";
             el.style.backgroundRepeat = "no-repeat";
           });
+          const overlay = document.getElementById("classification-overlay");
+          overlay.textContent = `Classification: ${
+            data.classification || "Unknown"
+          }`;
         } catch (err) {
           console.error("Error uploading image:", err);
         }
@@ -340,6 +352,8 @@
         link.click();
         document.body.removeChild(link);
       });
+      // Update classification overlay
+      // Update overlay
     </script>
   </body>
 </html>

@@ -159,3 +159,60 @@ def analyze_kolam_full_phone(image_path, dot_size=5, skeleton_marker_size=1, ske
 
 # Example usage:
 # gray, edges, contours, skeleton, dots = analyze_kolam_full_phone("phone_photo.jpg")
+from scipy.spatial import distance
+import numpy as np
+
+def extract_features_density(gray, skeleton, dots, contours):
+    """
+    Extract density-based features for Kolam classification.
+    """
+    features = {}
+    h, w = gray.shape
+    area = h * w
+
+    # Basic features
+    features['num_dots'] = len(dots)
+    features['skeleton_length'] = np.sum(skeleton)
+    features['num_contours'] = len(contours)
+
+    # Density-based features
+    features['dot_density'] = len(dots) / area
+    features['skeleton_density'] = np.sum(skeleton) / area
+
+    # Average distance between dots (optional)
+    if len(dots) > 1:
+        pts = np.array(dots)
+        dists = distance.pdist(pts)
+        features['avg_dot_distance'] = np.mean(dists)
+    else:
+        features['avg_dot_distance'] = 0
+
+    return features
+
+def classify_kolam_density(features):
+    """
+    Classify Kolam based on density features.
+    """
+    dot_density = features['dot_density']
+    skeleton_density = features['skeleton_density']
+
+    # Thresholds (adjust based on your dataset)
+    if dot_density < 0.0005 and skeleton_density < 0.002:
+        return "Simple Dot-Based"
+    elif dot_density < 0.002 and skeleton_density < 0.01:
+        return "Geometric"
+    else:
+        return "Complex/Looped"
+    
+
+# Run your full analysis
+gray, edges, contour_img, skeleton, dots = analyze_kolam_full_phone("Kolam Generator.png")
+
+# Extract density features
+features = extract_features_density(gray, skeleton, dots, contours=contour_img)
+
+# Classify
+kolam_class = classify_kolam_density(features)
+
+print("Kolam classification:", kolam_class)
+print("Feature details:", features)

@@ -9,7 +9,7 @@ from torch import device
 import torch
 from kolam.style_transfer import load_image, run_style_transfer, tensor_to_pil
 from main import generate_kolam_image, weave_styles
-from kolam.analysis import analyze_and_plot_kolam, analyze_kolam_full_phone
+from kolam.analysis import analyze_and_plot_kolam, analyze_kolam_full_phone, classify_kolam_density, extract_features_density
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -109,6 +109,8 @@ def analyse():
 
     # 2️⃣ Right pane: analysis images from analyze_kolam_full_phone
     gray, edges, contours, skeleton, dots = analyze_kolam_full_phone(image_path)
+    features = extract_features_density(gray, skeleton, dots, contours=contours)
+    kolam_class = classify_kolam_density(features)
 
     def to_base64(img_array, cmap=None, dots_overlay=None):
         buf = io.BytesIO()
@@ -137,7 +139,8 @@ def analyse():
         "dots": dots_base64,                # right gen1
         "contours": contours_base64,        # right gen2
         "edges": edges_base64,              # right gen3
-        "skeleton": skeleton_base64         # right gen4
+        "skeleton": skeleton_base64,         # right gen4
+        "classification": kolam_class
     })
 
 
