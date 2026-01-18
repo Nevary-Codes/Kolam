@@ -20,11 +20,6 @@ charset-normalizer
 click==8.1.7
 cohere==5.15.0
 comm
-conda
-conda-content-trust
-conda-libmamba-solver
-conda-package-handling
-conda_package_streaming
 contourpy
 cryptography
 cycler
